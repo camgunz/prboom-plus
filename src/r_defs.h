@@ -90,6 +90,7 @@ typedef struct
 {
   thinker_t thinker;  // not used for anything
   fixed_t x, y, z;
+  unsigned int id;
 } degenmobj_t;
 
 //

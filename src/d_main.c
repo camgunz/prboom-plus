@@ -51,13 +51,15 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "doomdef.h"
+#include "z_zone.h"
 #include "doomtype.h"
+
+#include "doomdef.h"
 #include "doomstat.h"
+#include "d_dump.h"
 #include "d_net.h"
 #include "dstrings.h"
 #include "sounds.h"
-#include "z_zone.h"
 #include "w_wad.h"
 #include "s_sound.h"
 #include "v_video.h"
@@ -67,6 +69,7 @@
 #include "m_misc.h"
 #include "m_menu.h"
 #include "p_checksum.h"
+#include "p_ident.h"
 #include "i_main.h"
 #include "i_system.h"
 #include "i_sound.h"
@@ -1843,6 +1846,8 @@ static void D_DoomMainSetup(void)
   lprintf(LO_INFO,"R_Init: Init DOOM refresh daemon - ");
   R_Init();
 
+  P_IdentInit();
+
   //jff 9/3/98 use logical output routine
   lprintf(LO_INFO,"\nP_Init: Init Playloop state.\n");
   P_Init();
@@ -1952,6 +1957,10 @@ static void D_DoomMainSetup(void)
 
   // do not try to interpolate during timedemo
   M_ChangeUncappedFrameRate();
+
+  if ((p = M_CheckParm("-dumpdemo")) && ++p < myargc) {
+    D_DumpInit(myargv[p]);
+  }
 }
 
 //

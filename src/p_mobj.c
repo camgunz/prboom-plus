@@ -31,9 +31,12 @@
  *
  *-----------------------------------------------------------------------------*/
 
+#include <stdint.h>
+
 #include "doomdef.h"
 #include "doomstat.h"
 #include "m_random.h"
+#include "p_ident.h"
 #include "r_main.h"
 #include "p_maputl.h"
 #include "p_map.h"
@@ -948,6 +951,9 @@ mobj_t* P_SpawnMobj(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
   P_AddThinker (&mobj->thinker);
   if (!((mobj->flags ^ MF_COUNTKILL) & (MF_FRIEND | MF_COUNTKILL)))
     totallive++;
+
+  P_IdentGetID(mobj, &mobj->id);
+
   return mobj;
 }
 
@@ -1011,6 +1017,9 @@ void P_RemoveMobj (mobj_t* mobj)
     P_SetTarget(&mobj->tracer,    NULL);
     P_SetTarget(&mobj->lastenemy, NULL);
   }
+
+  P_IdentReleaseID(&mobj->id);
+
   // free block
 
   P_RemoveThinker (&mobj->thinker);

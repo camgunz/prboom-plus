@@ -545,21 +545,6 @@ void P_UnArchiveThinkers (void)
 //
 // P_ArchiveSpecials
 //
-enum {
-  tc_ceiling,
-  tc_door,
-  tc_floor,
-  tc_plat,
-  tc_flash,
-  tc_strobe,
-  tc_glow,
-  tc_elevator,    //jff 2/22/98 new elevator type thinker
-  tc_scroll,      // killough 3/7/98: new scroll effect thinker
-  tc_pusher,      // phares 3/22/98:  new push/pull effect thinker
-  tc_flicker,     // killough 10/4/98
-  tc_endspecials
-} specials_e;
-
 //
 // Things to handle:
 //

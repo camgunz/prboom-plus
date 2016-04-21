@@ -45,7 +45,22 @@
 #ifdef __cplusplus
 typedef bool dboolean;
 #else
+
+#ifdef true
+#undef true
+#endif
+
+#ifdef false
+#undef false
+#endif
+
+#ifdef bool
+#undef bool
+#endif
+
 typedef enum {false, true} dboolean;
+
+typedef dboolean bool;
 #endif
 typedef unsigned char byte;
 #endif
@@ -66,7 +81,7 @@ typedef unsigned char byte;
  * Except I don't know what to test as it's compiler specific
  * Proff - I fixed it */
 #ifndef _MSC_VER
-typedef signed long long int_64_t;
+typedef long long int_64_t;
 typedef unsigned long long uint_64_t;
 // define compiled-specific long-long contstant notation here
 #define LONGLONG(num)   (uint_64_t)num ## ll

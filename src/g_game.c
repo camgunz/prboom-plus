@@ -49,13 +49,18 @@
 #include "config.h"
 #endif
 
+#include "z_zone.h"
+#include "doomtype.h"
+
 #include "doomstat.h"
+#include "d_dump.h"
 #include "d_net.h"
 #include "f_finale.h"
 #include "m_argv.h"
 #include "m_misc.h"
 #include "m_menu.h"
 #include "m_random.h"
+#include "p_ident.h"
 #include "p_setup.h"
 #include "p_saveg.h"
 #include "p_tick.h"
@@ -840,6 +845,8 @@ static void G_DoLoadLevel (void)
   // died.
   P_FreeSecNodeList();
 
+  P_IdentReset();
+
   P_SetupLevel (gameepisode, gamemap, 0, gameskill);
   if (!demoplayback) // Don't switch views if playing a demo
     displayplayer = consoleplayer;    // view the guy you are playing
@@ -1216,6 +1223,11 @@ void G_Ticker (void)
       AM_Ticker();
       ST_Ticker ();
       HU_Ticker ();
+
+      if (D_DumpEnabled()) {
+        D_DumpUpdate();
+      }
+
       break;
 
     case GS_INTERMISSION:
@@ -1749,13 +1761,6 @@ void G_DoWorldDone (void)
   AM_clearMarks();           //jff 4/12/98 clear any marks on the automap
   e6y_G_DoWorldDone();//e6y
 }
-
-// killough 2/28/98: A ridiculously large number
-// of players, the most you'll ever need in a demo
-// or savegame. This is used to prevent problems, in
-// case more players in a game are supported later.
-
-#define MIN_MAXPLAYERS 32
 
 extern dboolean setsizeneeded;
 

@@ -113,6 +113,8 @@ case "$target" in
 	;;
 esac
 
+AC_CHECK_LIB(xdiff, xdl_set_allocator)
+
 dnl - GL
 AC_ARG_ENABLE(gl,AC_HELP_STRING([--disable-gl],[disable OpenGL rendering code]),,enable_gl="yes")
 if test "$enable_gl" = "yes"
