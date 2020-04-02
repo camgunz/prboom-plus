@@ -874,7 +874,7 @@ void D_DumpInit(const char *input_dump_file_name) {
   dump_buf2 = M_PBufNew();
   delta_buf = M_BufferNew();
   size_buf = M_PBufNew();
-  dump_fobj = fopen(dump_file_name, "ab");
+  dump_fobj = fopen(dump_file_name, "wb");
 
   if (!dump_fobj) {
     perror("Error opening dump file");
